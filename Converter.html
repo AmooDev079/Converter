@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Units Converter</title>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+
+.temp{color: white;overflow: hidden;
+    width: 320px;border-radius: 20px;
+    position: relative; left: 60px;
+    height: 330px;
+    background: url('./temp.jpeg');
+    background-position: -100px;
+    
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+#quiz{ color: black;
+    display: flex;
+    font-size: 24px;
+    flex-direction: row;
+    position: relative;
+    top:115px;
+}
+#quiz input{position: relative;
+    color: rgb(0, 0, 0);text-align: center;
+    width: 85px;left: 20px;padding: 2px;
+    font-size: 20px;border-radius: 10px;
+    transition: 0.5s;
+    background: rgba(255, 255, 255, 0.6);
+}
+#quiz input:hover{
+    transform: scale(1.1);
+    box-shadow: -6px -6px 10px black;
+}
+#quiz #converter{
+    box-shadow: -2px -2px black;
+    color: white;
+    transition: 0.5s;font-size: 18px;
+    width: 100px;
+    height: 30px;
+position: relative;border-radius: 10px;
+left: 50px;text-transform: uppercase; font-weight: bold;
+background: linear-gradient(to top right,red,green, yellow);
+
+}
+#quiz #converter:hover{
+    transform: scale(1.1);
+    box-shadow: -6px -6px 5px black;
+}
+#heading{ text-decoration: double underline ;
+    width: 320px; text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    left:60px;
+}
+.temp #title{
+position: absolute; margin: 0;
+left: 60px;top:0; color: rgb(0, 0, 0);
+font-size: 30px;
+background:rgba(240, 232, 232, 0.5)
+
+}
+#convert{
+    position: absolute; margin: 0;
+left: 50px;top:60px; color: rgb(0, 0, 0);
+font-size: 30px;
+background:rgba(139, 158, 29, 0.5);
+font-stretch: extra-expanded;
+ 
+}
+#select{font-size: 20px;
+    height: 40px;text-align: center;
+    width: 50px;
+    background:rgba(0, 0, 0, 0.8);
+    color: white;
+}
+#degre{font-size: 30px;
+    height: 90px;text-align: center;
+    width: 100px;position: relative;
+    background:rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+
+
+
+#working{ bottom: 0;
+    position: absolute; background:
+     linear-gradient(to top left, rgb(100, 219, 228), transparent);
+    width: 100%; height: 170px;
+}
+#working #workT{
+    text-decoration: underline;
+    text-align: center;
+}
+#mid{
+    font-size: 22px;
+    position: relative;
+    left: 15px;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+#end{
+    top: 0px;font-size: 25px;
+    background: linear-gradient(white,rgb(116, 108, 108));
+   position: relative;color: black;
+   left: 75px;
+   width: fit-content;
+}
+#results{ position: relative;left:0px;
+    color: rgb(6, 5, 78);font-weight: bolder;
+    font-size: 20px;
+    
+}
+#results #start{
+    line-height: 30px;
+    position: relative;
+   left: 90px;
+   text-shadow: 1px 1px 2px black;
+    font-size: 24px;
+}
+    #answer{width: 70px;height: 30px;
+        border-radius: 10px;
+        border: 3px double black;
+        line-height: 30px;
+        box-shadow: inset 2px 2px 5px rgb(82, 76, 76), inset -2px -2px 5px rgb(63, 63, 63);
+        color: black;
+        text-align: center;font-size: 20px;
+        position: absolute; bottom: 10px;right: 15px;
+      
+    }
+    .now{
+        
+        animation: ans 2s linear;
+    }
+    @keyframes ans {
+       0%{transform: scale(0) rotateZ(360deg);} 
+       50%{transform: scale(1.1);} 
+       100%{transform: scale(1) rotateZ(0deg) ;} 
+    }
+
+    #toanswer{width:80px;height: 30px;
+        border-radius: 10px;
+        font-size: 24px;
+        line-height: 30px;
+        color: black;
+        text-wrap:wrap;
+        text-align: center;
+        position: absolute; bottom: 10px;right: 100px;
+    }
+    #shortform{
+        font-size: 15px;color: black;
+        position: absolute;
+        top: 35px;
+        left:65px;
+    }
+    </style>
+</head>
+<body>
+    <h2 id='heading'> Temparature Units Convert </h2>
+    <div class="temp">
+        <p id="shortform"><span id="hre"></span>Degree Celcius     & <span id="hre2">K</span>(Kelvins)</p>
+        <h4 id="title">Temparature</h4>
+        <p id="convert">Convert <span id="degree">
+            <select onchange="changes(),units(); " name="temp" id="select">
+        
+        </select>
+
+        </span> to <span id="degre">K</span></p>
+        <p id="quiz" > Input  : <input type="text" id="input" placeholder="type here">
+            <button id="converter">Convert</button>
+        </p>
+        <div id="working">
+            <p id="workT">Working Process</p>
+            <div id="results">
+                <p id="start"></p>
+                <p id="mid"></p>
+                <p id="end"></p>
+            </div>
+            <div id="toanswer"></div>
+            <div id="answer">Answer</div>
+        </div>
+    </div>
+
+    <script>
+        let input = document.getElementById('input');
+        let part2 = document.getElementById('degre');
+        let toAns = document.getElementById('toanswer');
+let selection1 = document.getElementById('select');
+let option1 = document.createElement('option');
+option1.innerHTML = 'K';
+document.getElementById('hre').innerHTML = '('+String.fromCharCode(176)+"C)"; ;
+let option2 = document.createElement('option');
+option2.innerHTML = String.fromCharCode(176)+'C';
+option2.selected= true;
+ selection1.appendChild(option1) ;    
+ selection1.appendChild(option2)  ; 
+ let t1 = 'From '+String.fromCharCode(176)+"C"+" to K";
+            
+            let t2 = 'From '+'K to '+String.fromCharCode(176)+"C";
+ units(); 
+ function units(){
+    if(part2.innerText =='K' ){
+        document.getElementById('title').innerHTML = t1;
+ }else{
+    document.getElementById('title').innerHTML = t2;
+ }
+ }
+ function changes(){
+  if(option1.selected){
+   part2.innerText = String.fromCharCode(176)+'C';
+ }else{
+    part2.innerText = "K";
+ }
+}
+
+//console.log(selection1.innerText)
+
+        function toKelvins(){
+            let x =273;
+            let t1 = 'From '+String.fromCharCode(176)+"C"+" to K";
+            
+            let t2 = 'From '+'K to '+String.fromCharCode(176)+"C";
+            let statement = '0'+String.fromCharCode(176)+'C'+' = '+'273K';
+            let statement2 = '0'+'K' +'= -273'+String.fromCharCode(176)+'C'
+            let work = "To convert add 273 to "+input.value+"K";
+            let work2 = "To convert subtract 273 from "+input.value+String.fromCharCode(176)+"C";
+            let ans = Number(input.value)+ x;
+            let workOut = input.value +' + '+273+ " = "+ ans;
+            let ans1 = Number(input.value)- x;
+            let workOut2 = input.value +' - '+273+ " = "+ ans1;
+            //console.log(typeof(45));
+            let letters = ['a','b','c','d','e','f','g','h','i','j','k','l',
+                'm','n','o','p','q','r','s','t','u','v','w','x','y','z'
+            ]
+            if(input.value !== ''){
+                console.log(ans,ans1);
+                document.getElementById('answer').classList.add('now')
+                setInterval(()=>{
+                    document.getElementById('answer').classList.remove('now')
+                },2000)
+                
+         if(part2.innerText =='K' ){
+            document.getElementById('title').innerHTML = t1;
+            toAns.innerHTML = input.value +String.fromCharCode(176)+'C= '
+            document.getElementById('start').innerHTML = statement;
+            document.getElementById('mid').innerHTML = work;
+            document.getElementById('end').innerHTML = workOut;
+            document.getElementById('answer').innerHTML = ans+'K';
+         }else{
+            document.getElementById('title').innerHTML = t2;
+            toAns.innerHTML = input.value +'K= '
+            document.getElementById('start').innerHTML = statement2;
+            document.getElementById('mid').innerHTML = work2;
+            document.getElementById('end').innerHTML = workOut2;
+            document.getElementById('answer').innerHTML = ans1
+            +String.fromCharCode(176)+"C";
+         }
+            
+            }else{
+                alert('Input valid number')
+            }
+
+        }
+        document.getElementById('converter').addEventListener('click',toKelvins);
+    </script>
+</body>
+</html>
